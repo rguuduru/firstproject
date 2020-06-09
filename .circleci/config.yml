@@ -5,7 +5,7 @@ orbs:
   docsync: streamroot/docsync@1.0.2
 # Orchestrate or schedule a set of jobs
 jobs:
-    build:
+      publish-github-release:
         docker:
             - image: alpine/git
         parameters:
@@ -42,10 +42,18 @@ jobs:
                 sh ./utility.sh ${<<parameters.github-personnal-token>>} ${<<parameters.github-personnal-email>>} ${<<parameters.github-user-name>>}
                 echo "after executing script"
 workflows:
-    version: 2
-    build:
-        jobs:
-        - build:
-            filters:
-                tags:
-                only: /.*/
+  version: 2
+  main:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /^\d+\.\d+\.\d+$/
+      - publish-github-release:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+\.\d+\.\d+$/
