@@ -41,3 +41,11 @@ jobs:
                 ls -lrt
                 sh ./utility.sh ${<<parameters.github-personnal-token>>} ${<<parameters.github-personnal-email>>} ${<<parameters.github-user-name>>}
                 echo "after executing script"
+workflows:
+    version: 2
+    build:
+        jobs:
+        - build:
+            filters:
+                tags:
+                only: /.*/
