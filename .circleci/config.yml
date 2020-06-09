@@ -43,11 +43,13 @@ jobs:
                 echo "after executing script"
 workflows:
   version: 2
-  publish-github-release:
+  run-release-workflow:
         jobs:
-        - publish-github-release:
+            - publish-github-release:
                 filters:
+                    # ignore any commit on any branch by default
                     branches:
-                    ignore: /.*/
+                        ignore: /.*/
+                    # only act on version tags
                     tags:
-                    only: /^\d+\.\d+\.\d+$/
+                        only: /^v[0-9]+(\.[0-9]+)*$/
