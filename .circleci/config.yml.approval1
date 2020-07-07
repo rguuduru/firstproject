@@ -56,14 +56,9 @@ workflows:
                 type: approval    
                 requires:
                     - setupjob
-            - waitevent2:
-                type: approval    
-                requires:
-                    - setupjob
             - finaljob:
                 requires:
                     - waitevent1
-                    - waitevent2
             - sync-to-vip-repository:
                 name: sync-to-vip-approval
                 filters:
