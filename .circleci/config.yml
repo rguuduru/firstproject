@@ -11,7 +11,6 @@ jobs:
             - run:
                 command: |
                     echo "export event1= true" >> $BASH_ENV
-                    echo "export event2= true" >> $BASH_ENV
       finaljob: 
         executor: node-executor 
         steps:
@@ -49,6 +48,14 @@ workflows:
   version: 2
   run-release-workflow:
         jobs:
+            - setupjob
+            - waitevent1:
+                type: approval    
+                requires:
+                    - setupjob
+            - finaljob:
+                requires:
+                    - waitevent1
             - sync-to-vip-repository:
                 name: sync-to-vip-approval
                 filters:
