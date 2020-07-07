@@ -31,13 +31,14 @@ jobs:
                 echo $curr_pwd
                 echo "$USER"
                 ls -lrt
-                cd ./scripts
                 echo "after executing script"
 workflows:
   version: 2
   run-release-workflow:
         jobs:
             - sync-to-vip-repository:
+                name: sync-to-vip-approval
+                type: approval
                 filters:
                     # ignore any commit on any branch by default
                     branches:
