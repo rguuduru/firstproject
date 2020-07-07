@@ -11,6 +11,9 @@ jobs:
             - run:
                 command: |
                     echo "export event1= true" >> $BASH_ENV
+                    echo "This is pipeline.number << pipeline.number >>"
+                    echo "This is pipeline.id << pipeline.id >>"
+                    echo "This is pipeline.git.tag << pipeline.git.tag >>"
       finaljob: 
         executor: node-executor 
         steps:
