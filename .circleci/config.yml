@@ -5,18 +5,10 @@ orbs:
   docsync: streamroot/docsync@1.0.2
 # Orchestrate or schedule a set of jobs
 jobs:
-      publish-github-release:
+      sync-to-vip-repository:
         docker:
             - image: alpine/git
         parameters:
-            github-repo-name:
-                description: Target Project
-                type: env_var_name
-                default: GITHUB_REPO_NAME
-            github-repo-url:
-                description: Target Project URL
-                type: env_var_name
-                default: GITHUB_REPO_URL
             github-user-name:
                 description: Username of GitHub account
                 type: env_var_name
@@ -26,7 +18,7 @@ jobs:
                 type: env_var_name
                 default: GITHUB_PERSONAL_TOKEN
             github-personnal-email:
-                description: GITHUB Email
+                description: GITHUB Emails
                 type: env_var_name
                 default: GITHUB_PERSONAL_EMAIL
         steps:
@@ -39,13 +31,13 @@ jobs:
                 echo $curr_pwd
                 echo "$USER"
                 ls -lrt
-                sh ./utility.sh ${<<parameters.github-personnal-token>>} ${<<parameters.github-personnal-email>>} ${<<parameters.github-user-name>>}
+                cd ./scripts
                 echo "after executing script"
 workflows:
   version: 2
   run-release-workflow:
         jobs:
-            - publish-github-release:
+            - sync-to-vip-repository:
                 filters:
                     # ignore any commit on any branch by default
                     branches:
