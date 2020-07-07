@@ -3,8 +3,24 @@ version: 2.1
 # Use a package of configuration called an orb.
 orbs:
   docsync: streamroot/docsync@1.0.2
-# Orchestrate or schedule a set of jobs
+executors:
+    node-executor:
+        docker:
+            - image: circleci/node:latest
 jobs:
+      setupjob: 
+        executor: node-executor
+        steps:
+            - run:
+                command: |
+                    echo "export event1= true" >> $BASH_ENV
+                    echo "export event2= true" >> $BASH_ENV
+      finaljob: 
+        executor: node-executor 
+        steps:
+            - run:
+                command: |
+                    echo "Final job"
       sync-to-vip-repository:
         docker:
             - image: alpine/git
@@ -38,7 +54,6 @@ workflows:
         jobs:
             - sync-to-vip-repository:
                 name: sync-to-vip-approval
-                type: approval
                 filters:
                     # ignore any commit on any branch by default
                     branches:
