@@ -3,7 +3,7 @@ version: 2.1
 parameters:
   run_workflow_wait_on_one_event:
     type: boolean
-    default: false
+    default: true
 executors:
     node-executor:
         docker:
