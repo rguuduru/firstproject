@@ -18,7 +18,7 @@ jobs:
         executor: node-executor 
         steps:
             - when:
-                    condition: << false >>
+                    condition: << pipeline.number >>
                     steps:
                         - run:
                             name: Run a LargeFireBoom Buildroot workload
