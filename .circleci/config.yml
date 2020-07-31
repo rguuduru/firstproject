@@ -34,6 +34,14 @@ jobs:
                             echo "This is pipeline.number << pipeline.number >>"
                             echo "This is pipeline.id << pipeline.id >>"
                             echo "This is pipeline.git.tag << pipeline.git.tag >>"
+            - when:
+                and: # All must be true to trigger
+                  - not: << pipeline.parameters.run_workflow_wait_on_one_event >>
+                  steps:
+                    - run:
+                        name: Run a LargeFireBoom Buildroot workload
+                        command: |
+                            echo "Final job and incase of FALSE"
       sync-to-vip-repository:
         docker:
             - image: alpine/git
