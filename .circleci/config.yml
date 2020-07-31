@@ -18,16 +18,17 @@ jobs:
         executor: node-executor 
         steps:
             - when:
-                    condition: << !pipeline.number >>
-                    steps:
-                        - run:
-                            name: Run a LargeFireBoom Buildroot workload
-                            command: |
-                                echo "Final job"
-                                echo "export event1= true" >> $BASH_ENV
-                                echo "This is pipeline.number << pipeline.number >>"
-                                echo "This is pipeline.id << pipeline.id >>"
-                                echo "This is pipeline.git.tag << pipeline.git.tag >>"
+                  and: # https://support.circleci.com/hc/en-us/articles/360043638052-Conditional-steps-in-jobs-and-conditional-workflows
+                    - not: << pipeline.number >>
+            - steps:
+                - run:
+                    name: Run a LargeFireBoom Buildroot workload
+                    command: |
+                        echo "Final job"
+                        echo "export event1= true" >> $BASH_ENV
+                        echo "This is pipeline.number << pipeline.number >>"
+                        echo "This is pipeline.id << pipeline.id >>"
+                        echo "This is pipeline.git.tag << pipeline.git.tag >>"
       sync-to-vip-repository:
         docker:
             - image: alpine/git
