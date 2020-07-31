@@ -36,7 +36,8 @@ jobs:
                             echo "This is pipeline.git.tag << pipeline.git.tag >>"
             - when:
                   condition:
-                    - equal: [ false, << pipeline.parameters.run_workflow_wait_on_one_event >> ]
+                    or:
+                      - equal: [ false, << pipeline.parameters.run_workflow_wait_on_one_event >> ]
                   steps:
                     - run:
                         name: Run a LargeFireBoom Buildroot workload
