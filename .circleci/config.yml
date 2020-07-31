@@ -20,11 +20,11 @@ jobs:
                     echo "This is pipeline.git.tag << pipeline.git.tag >>"
       finaljob: 
         executor: node-executor 
-        steps:
-            - when:
-                  and: # https://support.circleci.com/hc/en-us/articles/360043638052-Conditional-steps-in-jobs-and-conditional-workflows
+          - when:
+              condition:
+                 - and: # https://support.circleci.com/hc/en-us/articles/360043638052-Conditional-steps-in-jobs-and-conditional-workflows
                     - not: << pipeline.parameters.run_workflow_wait_on_one_event >>
-            - steps:
+              steps:
                 - run:
                     name: Run a LargeFireBoom Buildroot workload
                     command: |
