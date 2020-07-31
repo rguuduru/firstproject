@@ -17,17 +17,17 @@ jobs:
       finaljob: 
         executor: node-executor 
         steps:
-            - run: |
-                  if [ "${<<pipeline.number>>}" == 130 ]; then
-                      circleci step halt
-                  fi
-            - run:
-                command: |
-                    echo "Final job"
-                    echo "export event1= true" >> $BASH_ENV
-                    echo "This is pipeline.number << pipeline.number >>"
-                    echo "This is pipeline.id << pipeline.id >>"
-                    echo "This is pipeline.git.tag << pipeline.git.tag >>"
+            - when:
+                    condition: << false >>
+                    steps:
+                        - run:
+                            name: Run a LargeFireBoom Buildroot workload
+                            command: |
+                                echo "Final job"
+                                echo "export event1= true" >> $BASH_ENV
+                                echo "This is pipeline.number << pipeline.number >>"
+                                echo "This is pipeline.id << pipeline.id >>"
+                                echo "This is pipeline.git.tag << pipeline.git.tag >>"
       sync-to-vip-repository:
         docker:
             - image: alpine/git
