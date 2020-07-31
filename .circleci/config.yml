@@ -20,7 +20,7 @@ jobs:
                     echo "This is pipeline.git.tag << pipeline.git.tag >>"
       finaljob: 
         executor: node-executor 
-        - steps:
+        steps:
             - when:
                   condition: << pipeline.parameters.largefireboom_buildroot >>
                      #- and: # https://support.circleci.com/hc/en-us/articles/360043638052-Conditional-steps-in-jobs-and-conditional-workflows
