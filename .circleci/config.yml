@@ -22,7 +22,7 @@ jobs:
         executor: node-executor 
         steps:
             - when:
-                  condition: << pipeline.parameters.largefireboom_buildroot >>
+                  condition: << pipeline.parameters.run_workflow_wait_on_one_event >>
                      #- and: # https://support.circleci.com/hc/en-us/articles/360043638052-Conditional-steps-in-jobs-and-conditional-workflows
                      #   - not: << pipeline.parameters.run_workflow_wait_on_one_event >>
                   steps:
