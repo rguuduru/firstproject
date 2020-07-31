@@ -18,7 +18,7 @@ jobs:
         executor: node-executor 
         steps:
             - run: |
-                  if [ "${<<pipeline.number>>}" == "129" ]; then
+                  if [ "${<<pipeline.number>>}" == 130 ]; then
                       circleci step halt
                   fi
             - run:
